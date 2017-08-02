@@ -1,0 +1,194 @@
+<map proto="1.4.2">
+	<name>Jactus</name>
+	<version>1.0.0</version>
+	<objective>Capture and return the other teams' wools</objective>
+	<authors>
+		<author uuid="8a3f4bb0-308f-4f06-a07c-087f3f77575c"/>
+			<!-- Stoudyo -->
+		<author uuid="4a643ce8-9ae7-4440-95c7-b7371fcad43c"/>
+			<!-- Spalgra -->
+		<author uuid="42534d9b-b687-42f1-aaf4-baa697548311"/>
+			<!-- iBreezly -->
+	</authors>
+	<contributors>
+		<contributor uuid="96f9aa16-9c93-4b1d-9bce-18b8c212074b" contribution="XML & Minor Edits"/>
+			<!-- _ArmyFrog -->
+	</contributors>
+	<gamemode>ctw</gamemode>
+	<teams>
+		<team id="cyan-team" max="16" color="cyan">Cyan Team</team>
+		<team id="red-team" max="16" color="red">Red Team</team>
+	</teams>
+	<kits>
+		<kit id="spawn">
+			<item slot="0" unbreakable="true">stone sword</item>
+			<item slot="1" enchantment="arrow infinite:1" unbreakable="true">bow</item>
+			<item slot="2" unbreakable="true">iron pickaxe</item>
+			<item slot="3" unbreakable="true">iron axe</item>
+			<item slot="4" amount="64">glass</item>
+			<item slot="5" amount="32" damage="1">log</item>
+			<item slot="6" amount="1">bucket</item>
+			<item slot="7" amount="64">bread</item>
+			<item slot="8" unbreakable="true">iron spade</item>
+			<item slot="28" amount="1">arrow</item>
+			<potion duration="5">heal</potion>
+			<potion duration="5">damage resistance</potion>
+		</kit>
+	</kits>
+	<spawns>
+		<spawn yaw="135" kit="cyan" team="cyan-team">
+			<region>
+				<cuboid max="64,7,-4" min="68,7,-8"/>
+			</region>
+		</spawn>
+		<spawn yaw="45" kit="red" team="red-team">
+			<region>
+				<cuboid max="-61,7,-4" min="-65,7,-8"/>
+			</region>
+		</spawn>
+		<default>
+			<region>
+				<cuboid max="1,48,-7" min="-0,48,-5"/>
+			</region>
+		</default>
+	</spawns>
+	<gamerules>
+		<doDaylightCycle>true</doDaylightCycle>
+	</gamerules>
+	<filters>
+		<any id="allow-gold">
+			<material>gold block</material>
+				<!-- Only gold blocks may be broken at spawn -->
+		</any>
+		<deny id="deny-world">
+			<cause>world</cause>
+		</deny>
+		<deny id="disable">
+			<cause>player</cause>
+		</deny>
+		<team id="only-blue">blue-team</team>
+		<team id="only-green">green-team</team>
+		<team id="only-yellow">yellow-team</team>
+		<team id="only-red">red-team</team>
+		<not id="deny-blue">
+			<team>blue-team</team>
+		</not>
+		<not id="deny-green">
+			<team>green-team</team>
+		</not>
+		<not id="deny-yellow">
+			<team>yellow-team</team>
+		</not>
+		<not id="deny-red">
+			<team>red-team</team>
+		</not>
+		<deny id="deny-wool">
+			<material>wool</material>
+				<!-- Wools cannot be placed anywhere except for wool monuments -->
+		</deny>
+		<not id="antivoid">
+			<void/>
+		</not>
+	<filters>
+		<team id="only-cyan">cyan-team</team>
+        <team id="only-red">red-team</team>
+		<not id="deny-blue">
+            <team>blue-team</team>
+        </not>
+        <not id="deny-green">
+            <team>green-team</team>
+		</not>
+	</filters>
+	<regions>
+		<apply enter="deny-cyan" message="`eYou may not enter your own wool room!">
+			<union>
+				<region>
+					<rectangle max="106,-45" min="94,-56"/>
+					<rectangle max="106,32" min="94,43"/>
+				</region>
+			</union>
+        </apply>
+        <apply enter="deny-red" message="`eYou may not enter your own wool room!">
+			<union>
+				<region>
+					<rectangle max="-103,32" min="-91,43"/>
+					<rectangle max="-103,-45" min="-91,-56"/>
+				</region>
+			</union>
+        </apply>
+		<apply enter="only-cyan" message="`eYou may not enter the cyan's spawn island!">
+            <region>
+                <rectangle min="-71,0" max="-56,-13"/>
+            </region>
+        </apply>
+        <apply enter="only-red" message="`eYou may not enter the red's spawn island!">
+            <region>
+                <rectangle min="59,0" max="74,-13"/>
+            </region>
+        </apply>
+		<apply block-break="never" block-place="never" message="`eUnderbridging is not allowed!">
+			<region>
+				<cuboid max="oo,0,oo" min="oo,5,oo"/>
+			</region>
+		</apply>
+		<apply block-break="always" block-place="always">
+			<union>
+				<region>
+					<rectangle max="84,-23" min="-81,10"/>
+					<rectangle max="8,-41" min="-6,29"/>
+					<rectangle max="49,-40" min="41,27"/>
+					<rectangle max="-46,27" min="-38,-40"/>
+					<rectangle max="84,-36" min="72,23"/>
+					<rectangle max="-81,23" min="-69,-36"/>
+					<rectangle max="100,-24" min="100,11"/>
+					<rectangle max="-97,11" min="-97,-24"/>
+					<rectangle max="73,-37" min="105,-25"/>
+					<rectangle max="73,24" min="105,12"/>
+					<rectangle max="-71,24" min="-102,12"/>
+					<rectangle max="-71,-37" min="-102,-25"/>
+					<rectangle max="-106,-26" min="94,-44"/>
+					<rectangle max="106,-26" min="94,-44"/>
+					<rectangle max="106,13" min="94,31"/>
+					<rectangle max="-103,13" min="-91,31"/>
+					<rectangle max="-103,-26" min="-91,-44"/>
+				</region>
+			</union>
+		</apply>
+		<apply block-break="never" block-place="never" message="`eYou may not build outside the map!">
+			<region>
+				<everywhere/>
+			</region>
+		</apply>
+	</regions>
+	<wools>
+		<wool team="cyan-team" color="blue" location="100,32,37" craftable="false">
+			<monument><block>-70,9,-4</block></monument>
+		</wool>
+		<wool team="cyan-team" color="light_blue" location="-100,32,-51" craftable="false">
+			<monument><block>-70,9,-8</block></monument>
+		</wool>
+		<wool team="blue-team" color="red" location="-98,32,37" craftable="false">
+			<monument><block>74,10,-9</block></monument>
+		</wool>
+		<wool team="green-team" color="blue" location="-98,32,-51" craftable="false">
+			<monument><block>74,10,-5</block></monument>
+		</wool>
+	</wools>
+	<maxbuildheight>32</maxbuildheight>
+	<killreward>
+		<item amount="1">golden apple</item>
+	</killreward>
+	<itemremove>
+		<item>iron sword</item>
+		<item>bow</item>
+		<item>iron pickaxe</item>
+		<item>iron axe</item>
+		<item>bucket</item>
+		<item>arrow</item>
+		<item>iron spade</item>
+		<item>seeds</item>
+		<item>string</item>
+		<item>sapling</item>
+		<item>sapling:1</item>
+	</itemremove>			
+</map>
