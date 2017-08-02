@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<map proto="1.4.2">
+<name>Tower Blast</name>
+<version>1.0.2</version>
+<objective>Destroy 90% of your tower before the other team destroys theirs.</objective>
+<authors>
+    <author uuid="b3bf822a-4218-4f96-9110-278cad1ab848"/> <!--  Ensix  -->
+</authors>
+<gamemode>dtm</gamemode>
+<teams>
+    <team id="red-team" color="dark red" max="10">Red Team</team>
+    <team id="yellow-team" color="yellow" max="10">Yellow Team</team>
+</teams>
+<spawns>
+    <default>
+        <region><cylinder base="138.5,150,70.5" height="0" radius="1.5"/></region>
+    </default>
+    <spawn team="red-team" kit="red" yaw="-90">
+            <region><cylinder base="94.5,114,40.5" height="0" radius="1"/></region>
+            <region><cylinder base="126.5,114,40.5" height="0" radius="1"/></region>
+    </spawn>
+    <spawn team="yellow-team" kit="yellow" yaw="-90">
+            <region><cylinder base="94.5,114,100.5" height="0" radius="1"/></region>
+            <region><cylinder base="126.5,114,100.5" height="0" radius="1"/></region>
+    </spawn>
+</spawns>
+<destroyables name="Tower" completion="90%" show-progress="true" materials="stained_clay:4;stained_clay:9;stained_clay:14">
+    <destroyable owner="yellow-team">
+        <region><cuboid min="99,5,35" max="121,101,45"/></region>
+    </destroyable>
+    <destroyable owner="red-team">
+        <region><cuboid min="99,5,95" max="121,101,105"/></region>
+    </destroyable>
+</destroyables>
+<kits>
+    <kit id="spawn">
+        <item slot="0" amount="64" material="tnt"/>
+        <item slot="1" amount="64" material="tnt"/>
+        <item slot="2" amount="64" material="tnt"/>
+        <item slot="3" amount="64" material="tnt"/>
+        <item slot="4" amount="64" material="tnt"/>
+        <item slot="5" amount="64" material="tnt"/>
+        <item slot="6" amount="64" material="tnt"/>
+        <item slot="7" amount="64" material="tnt"/>
+        <item slot="8" amount="64" material="tnt"/>
+        <effect amplifier="5">resistance</effect>
+        <effect>jump_boost</effect>
+        <effect>speed</effect>
+    </kit>
+    <kit id="red" parents="spawn">
+        <helmet damage="14">stained glass</helmet>
+        <chestplate color="ff0000" material="leather chestplate" unbreakable="true"/>
+        <leggings color="ff0000" material="leather leggings" unbreakable="true"/>
+        <boots color="ff0000" material="leather boots" unbreakable="true"/>
+    </kit>
+    <kit id="yellow" parents="spawn">
+        <helmet damage="4">stained glass</helmet>
+        <chestplate color="ffe100" enchantment="protection environmental:1" material="leather chestplate" unbreakable="true"/>
+        <leggings color="ffe100" material="leather leggings" unbreakable="true"/>
+        <boots color="ffe100" material="leather boots" unbreakable="true"/>
+    </kit>
+</kits>
+<regions>
+    <cuboid id="red-top" min="92,106,35" max="128,120,45"/>
+    <cuboid id="yellow-top" min="92,106,95" max="128,120,105"/>
+    <apply block="never" message="You may not place TNT above the red line.">
+        <region id="red-top"/>
+    </apply>
+    <apply block="never" message="You may not place TNT above the yellow line.">
+        <region id="yellow-top"/>
+    </apply>
+    <apply block-break="not-glass">
+        <everywhere/>
+    </apply>
+</regions>
+<filters>
+    <not id="not-glass">
+        <all>
+            <material>stained glass</material>
+        </all>
+    </not>
+</filters>
+<itemremove>
+    <item>tnt</item>
+    <item>stained glass</item>
+    <item>leather chestplate</item>
+    <item>leather leggings</item>
+    <item>leather boots</item>
+</itemremove>
+<hunger>
+    <depletion>off</depletion>
+</hunger>
+<tnt>
+    <instantignite>on</instantignite>
+    <yield>0</yield>
+    <licensing>false</licensing>
+</tnt>
+</map>
