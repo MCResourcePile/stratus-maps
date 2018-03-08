@@ -31,10 +31,10 @@
 </kits>
 <spawns>
     <spawn team="blue" yaw="0" kit="blue-kit">
-        <regions><point>-63,160,-100</point></regions>
+        <regions><point>-51.5,161,-99.5</point></regions>
     </spawn>
     <spawn team="red" yaw="0" kit="red-kit">
-        <regions><point>18,160,-100</point></regions>
+        <regions><point>18.5,161,-99.5</point></regions>
     </spawn>
     <default yaw="0" kit="obs">
         <cylinder base="-17,36,13" radius="3" height="0"/>
@@ -43,6 +43,9 @@
 <filters>
     <not id="deny-beacon">
         <material>beacon</material>
+    </not>
+    <not id="tnt-at-height-limit">
+        <material>tnt</material>
     </not>
 </filters>
 <regions>
@@ -58,12 +61,6 @@
         <cuboid id="above-height-limit" min="-oo,61,-oo" max="oo,oo,oo"/>
     </union>
     <!--Applies-->
-    <apply block="never" message="You may not edit the spawn pools">
-        <regions>
-            <cuboid min="22,26,-93" max="15,oo,-86"/>
-            <cuboid min="-55,26,-86" max="-48,oo,-93"/>
-        </regions>
-    </apply>
     <apply block="never" message="You cannot build/modify here!">
         <region id="outside-map-b"/>
     </apply>
@@ -72,6 +69,14 @@
     </apply>
     <apply block-place="tnt-at-height-limit" region="tnt-height-limit" message="Only TNT is allowed at this level"/>
     <apply block="never" region="above-height-limit" message="You may not edit blocks at this level"/>
+    <apply block="never" message="You may not edit the spawn pools">
+        <region>
+            <union>
+                <cuboid min="21.5,26,-86.5" max="15.5,oo,-92.5"/>
+                <cuboid min="-54.5,26,-86.5" max="-48.5,oo,-92.5"/>
+            </union>
+        </region>
+    </apply>
 </regions>
 <modes>
     <mode after="15m" material="gold block" name="GOLD CORE MODE"/>
