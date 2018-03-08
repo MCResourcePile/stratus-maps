@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<map proto="1.4.2">
+<include src="tutorial.xml"/>
+<include src="tournament-temp.xml"/>
+<name>Iris DTC TE</name>
+<version>2.0.0</version>
+<objective>Leak the lava contained inside the opposing teams core to the void.</objective>
+<authors>
+    <author uuid="3a549b18-08ed-4756-a78c-b34d29a4fd87"/> <!-- Torn_Ares -->
+</authors>
+<teams>
+    <team id="red" color="dark red" max="24">Red</team>
+    <team id="blue" color="blue" max="24">Blue</team>
+</teams>
+<kits>
+    <kit id="obs">
+        <potion duration="oo">night vision</potion>
+    </kit>
+    <kit id="teams">
+        <item slot="0">diamond pickaxe</item>
+        <item slot="1" name="`rTNT Defuser - `o(Right Click)">shears</item>
+    </kit>
+    <kit id="red-kit" parents="teams">
+        <helmet enchantment="protection explosions:3" color="993333">leather helmet</helmet>
+        <chestplate color="993333">leather chestplate</chestplate>
+    </kit>
+    <kit id="blue-kit" parents="teams">
+        <helmet enchantment="protection explosions:3" color="334CB2">leather helmet</helmet>
+        <chestplate color="334CB2">leather chestplate</chestplate>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="blue" yaw="0" kit="blue-kit">
+        <regions><point>-63,160,-100</point></regions>
+    </spawn>
+    <spawn team="red" yaw="0" kit="red-kit">
+        <regions><point>18,160,-100</point></regions>
+    </spawn>
+    <default yaw="0" kit="obs">
+        <cylinder base="-17,36,13" radius="3" height="0"/>
+    </default>
+</spawns>
+<filters>
+    <not id="deny-beacon">
+        <material>beacon</material>
+    </not>
+</filters>
+<regions>
+    <!--Region definitions-->
+    <union id="outside-map-b">
+        <negative id="outside-map-a">
+            <rectangle id="map" min="57,-206" max="-91,-55"/>
+        </negative>
+        <cuboid id="above-70" min="-oo,70,-oo" max="oo,oo,oo"/>
+    </union>
+    <union id="height-limits">
+        <cuboid id="tnt-height-limit" min="-oo,60,-oo" max="oo,61,oo"/>
+        <cuboid id="above-height-limit" min="-oo,61,-oo" max="oo,oo,oo"/>
+    </union>
+    <!--Applies-->
+    <apply block="never" message="You may not edit the spawn pools">
+        <regions>
+            <cuboid min="22,26,-93" max="15,oo,-86"/>
+            <cuboid min="-55,26,-86" max="-48,oo,-93"/>
+        </regions>
+    </apply>
+    <apply block="never" message="You cannot build/modify here!">
+        <region id="outside-map-b"/>
+    </apply>
+    <apply use="deny-beacon">
+        <region id="map"/>
+    </apply>
+    <apply block-place="tnt-at-height-limit" region="tnt-height-limit" message="Only TNT is allowed at this level"/>
+    <apply block="never" region="above-height-limit" message="You may not edit blocks at this level"/>
+</regions>
+<modes>
+    <mode after="15m" material="gold block" name="GOLD CORE MODE"/>
+    <mode after="20m" material="glass" name="GLASS CORE MODE"/>
+</modes>
+<cores material="obsidian" leak="4" mode-changes="true">
+    <core owner="blue">
+        <region><cuboid min="-55,30,-132" max="-49,36,-125"/></region>
+    </core>
+    <core owner="red">
+        <region><cuboid min="15,30,-126" max="21,36,-132"/></region>
+    </core>
+</cores>
+<timelock>on</timelock>
+<itemremove>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>obsidian</item>
+    <item>gold block</item>
+    <item>glass</item>
+    <item>shears</item>
+</itemremove>
+<toolrepair>
+    <tool>diamond pickaxe</tool>
+</toolrepair>
+<tutorial>
+    <stage title="Destroy the Core">
+        <message>
+            <line>`rThe objective of this map is to `cleak `rthe lava from other team's core.</line>
+            <line>`rGet `airon blocks `rand `aTNT `rfrom the side islands.</line>
+            <line>`rYou will spawn with a stone sword, but get the rest of the supplies from the chests.</line>
+        </message>
+        <teleport>
+            <point yaw="160" pitch="20">0,72,-50</point>
+        </teleport>
+    </stage>
+    <stage title="Spawn Spaceship">
+        <message>
+            <line>`rYou will spawn in a spaceship in the air.</line>
+            <line>`rJump down the hole and into the `awater pool</line>
+            <line>`rBe careful not to hit the ground to hard!</line>
+        </message>
+        <teleport>
+            <point yaw="90" pitch="90">-62,162,-90</point>
+        </teleport>
+    </stage>
+    <stage title="Supply Chests">
+        <message>
+            <line>`rYou will find `asupply chests `rin the main asteroid.</line>
+            <line>`rProtect them, because the `cenemy `rwill try to blow them up!</line>
+        </message>
+        <teleport>
+            <point yaw="64" pitch="10">-42,31,-112</point>
+        </teleport>
+    </stage>
+    <stage title="Iron and TNT Supplies">
+        <message>
+            <line>`rOn the side asteroid--across from the main asteroid--you will find TNT and Iron.</line>
+            <line>`rUse this to your advantage and capture the enemy's asteroid.</line>
+        </message>
+        <teleport>
+            <point yaw="180" pitch="0">-63,41,-157</point>
+        </teleport>
+    </stage>
+</tutorial>
+</map>
