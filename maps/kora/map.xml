@@ -1,0 +1,114 @@
+<map proto="1.4.2">
+<name>Kora</name>
+<version>1.0.0</version>
+<gamemode>dtc</gamemode>
+<objective>Leak lava from the enemy's code!</objective>
+<authors>
+    <author uuid="48924ea3-3aad-4e16-838c-368d8d9e0a25"/><!--Matic0B-->
+</authors>
+<contributors>
+    <contributor uuid="fe3608b7-d105-4029-8800-34b3147065b6" contribution="Trees"/><!--Rockymine-->
+</contributors>
+<teams>
+    <team id="red-team" color="dark red" max="16" max-overfill="20">Red</team>
+    <team id="blue-team" color="blue" max="16" max-overfill="20">Blue</team>
+</teams>
+<kits>
+    <kit id="spawn-kit">
+        <item slot="0" material="iron sword" unbreakable="true"/>
+        <item slot="1" material="bow" unbreakable="true">
+            <enchantment>infinity</enchantment>
+        </item>
+        <item slot="2" material="diamond pickaxe" unbreakable="true"/>
+        <item slot="3" material="iron spade" unbreakable="true"/>
+        <item slot="4" material="stone axe" unbreakable="true"/>
+        <item slot="5" material="log" amount="8"/>
+        <item slot="6" material="golden apple"/>
+        <item slot="7" material="cooked beef" amount="16"/>
+        <item slot="28" material="arrow"/>
+        <leggings unbreakable="true">chainmail leggings</leggings>
+        <boots unbreakable="true">iron boots</boots>
+    </kit>
+    <kit id="red-kit" parents="spawn-kit">
+        <helmet color="ff0000">leather helmet</helmet>
+        <chestplate color="ff0000">leather chestplate</chestplate>
+    </kit>
+    <kit id="blue-kit" parents="spawn-kit">
+        <helmet color="0000ff">leather helmet</helmet>
+        <chestplate color="0000ff">leather chestplate</chestplate>
+    </kit>
+</kits>
+<filters>
+    <not id="no-void">
+        <void/>
+    </not>
+    <allow id="leaves">
+        <material>leaves</material>
+    </allow>
+    <allow id="logs">
+        <material>log</material>
+    </allow>
+</filters>
+<regions>
+        <everywhere/>
+    <apply block="no-void" message="You cannot modify the void!">
+        <region id="everywhere"/>
+    </apply>
+    <apply block-break="leaves" region="everywhere"/>
+    <apply block-break="logs" region="everywhere"/>
+</regions>
+<cores material="obsidian" leak="8">
+    <core team="red-team">
+        <region>
+            <cuboid min="36,16,24" max="41,11,29"/>
+        </region>
+    </core>
+    <core team="blue-team">
+        <region>
+            <cuboid min="-69,16,29" max="-74,11,24"/>
+        </region>
+    </core>
+</cores>
+<spawns>
+    <spawn team="red-team" kit="red-kit">
+        <regions yaw="90">
+            <point>83.5,6,26.5</point>
+        </regions>
+    </spawn>
+    <spawn team="blue-team" kit="blue-kit">
+        <regions yaw="-90">
+            <point>-116.5,6,26.5</point>
+        </regions>
+    </spawn>
+    <default>
+        <regions yaw="0">
+            <point>-16.5,17,-26.5</point>
+        </regions>
+    </default>
+</spawns>
+<killreward>
+    <item amount="1">golden apple</item>
+    <item amount="4">log</item>
+    <item amount="4">cooked beef</item>
+</killreward>
+<timelock>on</timelock>
+<maxbuildheight>20</maxbuildheight>
+<toolrepair>
+    <item>iron sword</item>
+    <item>bow</item>
+    <item>iron pickaxe</item>
+    <item>iron spade</item>
+    <item>stone axe</item>
+</toolrepair>
+<itemremove>
+    <item>sapling</item>
+    <item>string</item>
+    <item>golden apple</item>
+    <item>cooked beef</item>
+    <item>arrow</item>
+    <item>chainmail leggings</item>
+    <item>leather helmet</item>
+    <item>leather chestplate</item>
+    <item>iron boots</item>
+</itemremove>
+</map>
