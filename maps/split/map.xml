@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<map proto="1.4.3">
+<name>Split</name>
+<version>1.0.5</version>
+<objective>Take both of the enemy's wool and place them on your wool monument.</objective>
+<!-- This map uses AGBT -->
+<authors>
+    <author uuid="57f5535d-6b9e-4013-ad71-e2cc63ec8d7c"/> <!-- ItzaMeLuigi -->
+</authors>
+<contributors>
+    <contributor uuid="2cef6d05-ec9a-44b3-bedc-53359c68ae65" contribution="XML"/> <!-- BGMP00 -->
+</contributors>
+<gamerules>
+    <doDaylightCycle>true</doDaylightCycle>
+</gamerules>
+<teams>
+    <team id="blue" color="blue" max="14">Blue</team>
+    <team id="red" color="dark red" max="14">Red</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="iron sword"/>
+        <item slot="1" enchantment="arrow infinite:1" material="bow"/>
+        <item slot="2" enchantment="durability:3;dig speed:2" material="iron pickaxe"/>
+        <item slot="3" enchantment="durability:3;dig speed:1" material="iron axe"/>
+        <item slot="4" amount="64" damage="1" material="wood"/>
+        <item slot="5" amount="32" material="glass"/>
+        <item slot="6" amount="32" material="ladder"/>
+        <item slot="7" amount="1" material="golden_apple"/>
+        <item slot="8" amount="32" material="cooked_fish"/>
+        <item slot="28" material="arrow"/>
+		<potion amplifier="5" duration="5">damage resistance</potion>
+    </kit>
+</kits>
+<spawns>
+    <spawn team="red" kit="spawn">
+        <region yaw="90">
+			<cuboid min="55.5,70,-10.5" max="57.5,70,-12.5"/>
+		</region>
+    </spawn>
+    <spawn team="blue" kit="spawn">
+        <region yaw="-90">
+			<cuboid min="-54.5,70,11.5" max="-56.5,70,13.5"/>
+		</region>
+    </spawn>
+    <default>
+        <region yaw="180">
+			<cuboid min="-0.5,35,0.5" max="-1.5,35,1.5"/>
+		</region>
+    </default>
+</spawns>
+<filters>
+	<team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+	<all id="only-iron">
+		<material>iron block</material>
+	</all>
+	<all id="only-leaves">
+		<material>leaves</material>
+	</all>
+	<not id= "no-beacons">
+		<material>beacon</material>
+	</not>
+</filters>
+<regions>
+	<rectangle id="everything" min="oo,oo" max="-oo,-oo"/>
+	<cuboid id="obs-lobby" min="3.5,32,3.5" max="-3.5,40,-3.5"/>
+    <union id="allow-block-place">
+		<rectangle min="99,-6" max="-98,7"/>
+        <rectangle min="-86,31" max="-37,18"/>
+        <rectangle min="-37,18" max="-50,-6"/>
+		<rectangle min="87,-31" max="37,-17"/>
+		<rectangle min="37,-18" max="51,6"/>
+		<union id="iron">
+			<cuboid id="red-iron" min="58.5,5,-9.5" max="53.5,9,-14.5"/>
+			<cuboid id="blue-iron" min="-57.5,5,10.5" max="-52.5,9,15.5"/>
+		</union>
+    </union>
+	<negative id="void">
+		<region id="allow-block-place"/>
+	</negative>
+	<union id="spawns">
+		<cuboid id="red-spawn" min="52.5,10,-7.5" max="60.5,oo,-15.5"/>
+		<cuboid id="blue-spawn" min="-51.5,10,8.5" max="-59.5,oo,16.5"/>
+	</union>
+	<union id="red-wool-rooms">
+		<rectangle min="110,6" max="99,-5"/>
+		<rectangle min="98,-18" max="87,-29"/>
+	</union>
+	<union id="blue-wool-rooms">
+		<rectangle min="-98,-5" max="-109,6"/>
+		<rectangle min="-97,19" max="-86,30"/>
+	</union>
+	<complement>	
+		<region id="spawns"/>
+		<region id="wool-placements"/>
+	</complement>
+    <union id="wool-placements">
+        <block location="54,11,-9" id="magenta-wool"/>
+        <block location="53,11,-10" id="purple-wool"/>
+        <block location="-54,11,9" id="cyan-wool"/>
+        <block location="-52.5,11,10.5" id="light_blue-wool"/>
+    </union>
+	<wools>
+    <wool team="green" color="red" location="70,10,-170">
+        <monument><block>-7,23,-31</block></monument>
+    </wool>
+    <wool team="green" color="magenta" location="-80,10,-170">
+        <monument><block>-7,23,-32</block></monument>
+    </wool>
+    <wool team="red" color="lime" location="-80,10,-10">
+        <monument><block>146,23,-32</block></monument>
+    </wool>
+    <wool team="red" color="cyan" location="70,10,-10">
+        <monument><block>146,23,-31</block></monument>
+    </wool>
+</wools>
+	<apply use="no-beacons" message="Beacons are disabled" region="everything"/>
+	<apply block-break="only-iron" block-place="never" message="You may only break iron blocks inside the spawns" region="spawns"/>
+	<apply enter="only-red" message="You may not enter the enemy spawn" region="red-spawn"/>
+	<apply enter="only-blue" message="You may not enter the enemy spawn" region="blue-spawn"/>
+	<apply block="never" use="always" message="You may not interact with the wool rooms" region="red-wool-rooms"/>
+	<apply block="never" use="always" message="You may not interact with the wool rooms" region="blue-wool-rooms"/>
+	<apply enter="only-blue" message="You may not enter your own wool room" region="red-wool-rooms"/>
+	<apply enter="only-red" message="You may not enter your own wool room" region="blue-wool-rooms"/>
+	<apply use="only-blue" region="blue-wool-rooms"/>
+	<apply use="only-red" region="red-wool-rooms"/>
+	<apply block-place="never" block-break="only-leaves" message="You may not edit the void area!" region="void"/>
+	<apply block="never" region="obs-lobby"/>
+</regions>
+<renewables>
+    <renewable rate="0.6" grow="true" particles="true" sound="true" avoid-players="3">
+        <region>
+			<region id="red-iron"/>
+			<region id="blue-iron"/>
+        </region>
+        <renew-filter>
+                <material>iron block</material>
+        </renew-filter>
+        <replace-filter>
+                <material>air</material>
+        </replace-filter>
+    </renewable>
+</renewables>
+<wools craftable="false">
+    <wool team="red" color="magenta" location="54,11,-9" monument="magenta-wool"/>
+    <wool team="red" color="purple" location="53,11,-10" monument="purple-wool"/>
+    <wool team="blue" color="cyan" location="-54,11,9" monument="cyan-wool"/>
+    <wool team="blue" color="light_blue" location="53,11,-10" monument="light_blue-wool"/>
+</wools>	
+<maxbuildheight>20</maxbuildheight>
+<itemremove>
+    <item>string</item>
+    <item>glowstone dust</item>
+    <item>apple</item>
+    <item>sapling</item>
+    <item>sugar cane</item>
+    <item>clay ball</item>
+    <item>stone plate</item>
+    <item>sand</item>
+    <item damage="2">log</item>
+    <item>wood</item>
+    <item>glass</item>
+    <item>glass bottle</item>
+    <item>cooked fish</item>
+    <item>golden apple</item>
+    <item>ladder</item>
+</itemremove>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron pickaxe</tool>
+    <tool>iron spade</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<killreward>
+    <item material="golden apple"/>
+	<item amount="8" material="wood"/>
+</killreward>
+</map>
