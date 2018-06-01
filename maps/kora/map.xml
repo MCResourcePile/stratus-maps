@@ -2,7 +2,7 @@
 <name>Kora</name>
 <version>1.0.0</version>
 <gamemode>dtc</gamemode>
-<objective>Leak lava from the enemy's code!</objective>
+<objective>Leak lava from the enemy's core!</objective>
 <authors>
     <author uuid="48924ea3-3aad-4e16-838c-368d8d9e0a25"/><!--Matic0B-->
 </authors>
