@@ -1,0 +1,177 @@
+<map proto="1.4.2">
+<name>Thicket Two</name>
+<version>1.2.2</version>
+<objective>Capture the other team's wools.</objective>
+<authors>
+	<author uuid="2958ea4c-3501-404e-88cc-12e8632f68cc"/> <!-- NixaniaXi -->
+</authors>
+<broadcasts>
+    <alert after="1s">`rYou may not break `b`lStained Clay `ror `b`lStone Brick</alert>
+</broadcasts>
+<wools>
+    <wool team="red" color="light blue" location="51.5,8.5,326.5">
+        <monument>
+            <block>50,24,162</block>
+        </monument>
+    </wool>
+    <wool team="red" color="cyan" location="51.5,17.5,315.5">
+        <monument>
+            <block>52,24,162</block>
+        </monument>
+    </wool>
+    <wool team="blue" color="pink" location="51.5,8.5,154.5">
+        <monument>
+            <block>50,24,318</block>
+        </monument>
+    </wool>
+    <wool team="blue" color="orange" location="51.5,17.5,165.5">
+        <monument>
+            <block>52,24,318</block>
+        </monument>
+    </wool>
+</wools>
+<time result="objectives">45m</time>
+<teams>
+    <team id="red" color="dark red" max="8" max-overfill="8">Red Team</team>
+    <team id="blue" color="blue" max="8" max-overfill="8">Blue Team</team>
+</teams>
+<kits>
+    <kit id="spawn">
+        <item slot="0" material="iron sword" unbreakble="true"/>
+        <item slot="1" material="bow" enchantment="arrow infinite:1" unbreakble="true"/>
+        <item slot="2" material="iron pickaxe" unbreakble="true"/>
+        <item slot="3" material="iron axe" unbreakble="true"/>
+        <item slot="4" material="iron spade" unbreakable="true"/>
+        <item slot="5" material="cooked beef" amount="64"/>
+		<item slot="6" material="golden apple"/>
+		<item slot="7" material="wood" amount="64"/>
+		<item slot="34" material="wood" amount="64"/>
+        <item slot="8" material="glass" amount="64"/>
+        <item slot="28" material="arrow"/>
+        <chestplate enchantment="protection projectile:2" material="leather chestplate" unbreakable="true"/>
+    </kit>
+</kits>
+<toolrepair>
+    <tool>iron sword</tool>
+    <tool>bow</tool>
+    <tool>iron spade</tool>
+    <tool>iron axe</tool>
+</toolrepair>
+<itemremove>
+    <item>leather chestplate</item>
+    <item>cooked beef</item>
+    <item>string</item>
+    <item>iron pickaxe</item>
+    <item>seeds</item>
+    <item>red rose</item>
+    <item>smooth brick</item>
+    <item>redstone</item>
+</itemremove>
+<kill-rewards>
+    <kill-reward>
+		<item material="golden apple"/>
+        <item material="glass" amount="16"/>
+        <item material="wood" amount="32"/>
+    </kill-reward>
+</kill-rewards>
+<maxbuildheight>26</maxbuildheight>
+<filters>
+    <team id="only-blue">blue</team>
+    <team id="only-red">red</team>
+    <material id="only-iron">iron block</material>
+    <material id="only-web">web</material>
+    <not id="bedrock-void">
+        <any>
+            <material>stained clay</material>
+            <material>wool:14</material>
+            <material>wool:11</material>
+            <material>smooth brick</material>
+            <material>smooth stairs</material>
+            <material>step</material>
+            <material>double step</material>
+            <material>mob spawner</material>
+            <void/>
+        </any>
+    </not>
+    <not id="bedrock">
+        <any>
+            <material>stained clay</material>
+            <material>wool:14</material>
+            <material>wool:11</material>
+            <material>smooth brick</material>
+            <material>smooth stairs</material>
+            <material>step</material>
+            <material>double step</material>
+            <material>mob spawner</material>
+        </any>
+    </not>
+</filters>
+<regions>
+    <union id="void-gap">
+        <rectangle min="95,218" max="8,174"/>
+        <rectangle min="95,263" max="67,218"/>
+        <rectangle min="36,263" max="8,218"/>
+        <rectangle min="8,263" max="95,307"/>
+    </union>
+    <union id="iron-cubes">
+        <cuboid id="blue-iron-left" min="31,6,322" max="24,10,315"/>
+        <cuboid id="blue-iron-right" min="79,6,322" max="72,10,315"/>
+        <cuboid id="red-iron-left" min="72,6,159" max="79,10,166"/>
+        <cuboid id="red-iron-right" min="24,6,159" max="31,10,166"/>
+    </union>
+    <complement id="redspawn">
+        <cuboid min="80,0,152" max="23,12,167"/>
+        <region id="pink-room"/>
+    </complement>
+    <complement id="bluespawn">
+        <cuboid min="23,0,329" max="80,12,314"/>
+        <region id="light-blue-room"/>
+    </complement>
+    <union id="rooms">
+        <union id="redrooms">
+            <cuboid id="orange-room" min="60,20,166" max="44,15,160"/>
+            <cuboid id="pink-room" min="48,6,167" max="55,11,154"/>
+        </union>
+        <union id="bluerooms">
+            <cuboid id="cyan-room" min="43,20,315" max="60,15,321"/>
+            <cuboid id="light-blue-room" min="55,6,314" max="48,11,327"/>
+        </union>
+    </union>
+
+    <apply block-break="only-iron" block-place="never" enter="only-red" region="redspawn"/>
+    <apply block-break="only-iron" block-place="never" enter="only-blue" region="bluespawn"/>
+    <apply enter="only-red" region="bluerooms" message="You may not enter your own wool room!"/>
+    <apply enter="only-blue" region="redrooms" message="You may not enter your own wool room!"/>
+    <apply block="only-web" region="rooms" message="You may not modify the wool rooms!"/>
+    <apply block="bedrock-void">
+        <region>
+            <negative>
+                <region id="void-gap"/>
+            </negative>
+        </region>
+    </apply>
+    <apply block="bedrock" region="void-gap"/>
+</regions>
+<spawns>
+    <spawn team="red" kit="spawn">
+        <regions yaw="180">
+            <block>51.5,2,162.5</block>
+        </regions>
+    </spawn>
+    <spawn team="blue" kit="spawn">
+        <regions yaw="0">
+            <block>51.5,2,318.5</block>
+        </regions>
+    </spawn>
+    <default>
+        <regions>
+            <point>51.5,57,240.5</point>
+        </regions>
+    </default>
+</spawns>
+<respawn delay="5s"/>
+<crafting>
+    <disable>shield</disable>
+	<disable>minecart</disable>
+</crafting>
+</map>
